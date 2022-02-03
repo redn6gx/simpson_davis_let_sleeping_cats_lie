@@ -99,6 +99,14 @@ public class FurnitureServlet extends HttpServlet {
         }
     }
 
+    /**
+     * This method handles PUT requests made to the furniture uri. It parses the url to determine which
+     * controller method needs to be called.
+     *
+     * @param request                  the request to handle
+     * @param response                 the response to return to the client
+     * @throws IOException             thrown when sending an error response fails
+     */
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String[] uriTokens = request.getRequestURI().split("/");
@@ -126,6 +134,14 @@ public class FurnitureServlet extends HttpServlet {
         }
     }
 
+    /**
+     * This method handles DELETE requests made to the furniture uri. It parses the url to determine which
+     * controller method needs to be called.
+     *
+     * @param request                  the request to handle
+     * @param response                 the response to return to the client
+     * @throws IOException             thrown when sending an error response fails
+     */
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String[] uriTokens = request.getRequestURI().split("/");
