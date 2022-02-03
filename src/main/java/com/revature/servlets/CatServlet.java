@@ -88,10 +88,7 @@ public class CatServlet extends HttpServlet {
                 break;
             }
             case 3: {
-                if(!(request.getQueryString() == null) && "cats".equals(uriTokens[2])) {
-                    response.sendError(501);
-                } else if(request.getQueryString() == null && "cats".equals(uriTokens[2])) {
-                    // we post request for a cat
+                if(request.getQueryString() == null && "cats".equals(uriTokens[2])) {
                     this.controller.createCat(request, response);
                 } else {
                     response.sendError(400);
