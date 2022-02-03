@@ -10,7 +10,8 @@
         </Console>
 
         <!-- File Appender -->
-        <File name="FILE" fileName="${basePath}/catnap.log" append="true">
+        <File name="FILE" fileName="${basePath}/letsleepingcatslie.log" append="true">
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n" />
         </File>
 
