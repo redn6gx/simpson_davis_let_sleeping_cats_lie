@@ -54,7 +54,7 @@ public class CatServlet extends HttpServlet {
             case 4: {
                 if(uriTokens[3].matches("[0-9]+")) {
                     // we have a request for a specific cat
-                    request.setAttribute("id", uriTokens[3]);
+                    request.setAttribute("id", Integer.parseInt(uriTokens[3]));
                     this.controller.getCatById(request, response);
                 } else {
                     response.sendError(400, "Only id values are valid.");
@@ -90,6 +90,33 @@ public class CatServlet extends HttpServlet {
             case 3: {
                 if(request.getQueryString() == null && "cats".equals(uriTokens[2])) {
                     this.controller.createCat(request, response);
+                } else {
+                    response.sendError(400);
+                }
+                break;
+            }
+            default: {
+                response.sendError(400);
+                break;
+            }
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String[] uriTokens = request.getRequestURI().split("/");
+
+        switch(uriTokens.length) {
+            case 0:
+            case 1:
+            case 2: {
+                response.sendError(404);
+                break;
+            }
+            case 4: {
+                if(request.getQueryString() == null && "cats".equals(uriTokens[2]) && uriTokens[3].matches("[0-9]+")) {
+                        request.setAttribute("id", Integer.parseInt(uriTokens[3]));
+                        this.controller.updateCat(request, response);
                 } else {
                     response.sendError(400);
                 }
