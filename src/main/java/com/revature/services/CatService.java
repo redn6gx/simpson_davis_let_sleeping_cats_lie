@@ -10,6 +10,7 @@ public interface CatService {
 
     public void deleteCat(Cat cat) throws PersistenceException, ServiceUnavailableException;
     public void createCat(Cat cat) throws PersistenceException, ServiceUnavailableException;
+    public void createMany(List<Cat> cat) throws PersistenceException, ServiceUnavailableException;
     public Cat getCatById(int id) throws PersistenceException, ServiceUnavailableException;
     public List<Cat> getAllCats() throws PersistenceException, ServiceUnavailableException;
     public void updateCat(Cat cat) throws PersistenceException, ServiceUnavailableException;
