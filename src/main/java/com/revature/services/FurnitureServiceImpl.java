@@ -7,14 +7,8 @@ import exceptions.ConnectionFailedException;
 import persistence.EntityManager;
 import persistence.SessionFactory;
 
-import com.revature.exceptions.PersistenceException;
 import com.revature.exceptions.ServiceUnavailableException;
-import com.revature.models.Cat;
-import exceptions.CatnapException;
-import exceptions.ConnectionFailedException;
 import exceptions.RollbackException;
-import persistence.EntityManager;
-import persistence.SessionFactory;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
