@@ -61,6 +61,12 @@
             <version>2.8.6</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.revature</groupId>
+            <artifactId>catnap</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
     <packaging>war</packaging>
 
