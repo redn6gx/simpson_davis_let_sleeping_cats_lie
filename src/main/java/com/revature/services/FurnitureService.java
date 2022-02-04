@@ -1,9 +1,9 @@
 package com.revature.services;
 
 import com.revature.exceptions.PersistenceException;
+import com.revature.exceptions.ServiceUnavailableException;
 import com.revature.models.Furniture;
 
-import javax.naming.ServiceUnavailableException;
 import java.util.List;
 import java.util.Optional;
 
