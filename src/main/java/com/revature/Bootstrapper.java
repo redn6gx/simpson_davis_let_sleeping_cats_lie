@@ -6,6 +6,8 @@ import com.revature.controllers.CatControllerImpl;
 import com.revature.controllers.FurnitureController;
 import com.revature.controllers.FurnitureControllerImpl;
 import com.revature.models.Furniture;
+import com.revature.services.CatService;
+import com.revature.services.CatServiceImpl;
 import com.revature.servlets.CatServlet;
 import com.revature.servlets.FurnitureServlet;
 import org.apache.logging.log4j.LogManager;
@@ -36,7 +38,12 @@ public class Bootstrapper implements ServletContextListener {
     }
 
     private void initializeCatServlet(ServletContext context) {
-        CatController catController = new CatControllerImpl(null);
+
+        // Dependency chain
+        CatService catService = new CatServiceImpl();
+        CatController catController = new CatControllerImpl(catService);
+
+        // servlet registration
         ServletRegistration.Dynamic registration = context.addServlet("CatServlet", new CatServlet(catController));
         URI paths = CatServlet.class.getAnnotation(URI.class);
         Arrays.stream(paths.urlPatterns()).forEach(registration::addMapping);
