@@ -5,12 +5,13 @@ import com.revature.models.Furniture;
 
 import javax.naming.ServiceUnavailableException;
 import java.util.List;
+import java.util.Optional;
 
 public interface FurnitureService {
 
-    public void deleteFurniture(Furniture furniture) throws PersistenceException, ServiceUnavailableException;
-    public void createFurniture(Furniture furniture) throws PersistenceException, ServiceUnavailableException;
-    public Furniture getFurnitureById(int id) throws PersistenceException, ServiceUnavailableException;
-    public List<Furniture> getAllFurniture() throws PersistenceException, ServiceUnavailableException;
-    public void updateFurniture(Furniture furniture) throws PersistenceException, ServiceUnavailableException;
+    public void deleteFurniture(Furniture furniture, String sessionId) throws PersistenceException, ServiceUnavailableException;
+    public void createFurniture(Furniture furniture, String sessionId) throws PersistenceException, ServiceUnavailableException;
+    public Optional<Furniture> getFurnitureById(int id, String sessionId) throws PersistenceException, ServiceUnavailableException;
+    public List<Furniture> getAllFurniture(String sessionId) throws PersistenceException, ServiceUnavailableException;
+    public void updateFurniture(Furniture furniture, String sessionId) throws PersistenceException, ServiceUnavailableException;
 }
