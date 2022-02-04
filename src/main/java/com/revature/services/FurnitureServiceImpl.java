@@ -103,7 +103,16 @@ public class FurnitureServiceImpl implements FurnitureService {
 
     @Override
     public List<Furniture> getAllFurniture(String sessionId) throws PersistenceException, ServiceUnavailableException {
-        return null;
+        try {
+            EntityManager session = factory.getSessionContext(sessionId);
+            List<Object> furniture = session.getAll(Furniture.class);
+
+            return furniture.stream().map(f -> (Furniture) f).collect(Collectors.toList());
+        } catch (ConnectionFailedException e) {
+            throw new ServiceUnavailableException();
+        } catch (CatnapException e) {
+            throw new PersistenceException();
+        }
     }
 
     @Override
