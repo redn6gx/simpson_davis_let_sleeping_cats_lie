@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface CatService {
 
-    public void deleteCat(Cat cat) throws PersistenceException, ServiceUnavailableException;
-    public void createCat(Cat cat) throws PersistenceException, ServiceUnavailableException;
-    public void createMany(List<Cat> cat) throws PersistenceException, ServiceUnavailableException;
-    public Cat getCatById(int id) throws PersistenceException, ServiceUnavailableException;
-    public List<Cat> getAllCats() throws PersistenceException, ServiceUnavailableException;
-    public void updateCat(Cat cat) throws PersistenceException, ServiceUnavailableException;
+    public void deleteCat(Cat cat, String sessionId) throws PersistenceException, ServiceUnavailableException;
+    public void createCat(Cat cat, String sessionId) throws PersistenceException, ServiceUnavailableException;
+    public void createMany(List<Cat> cat, String sessionId) throws PersistenceException, ServiceUnavailableException;
+    public Cat getCatById(int id, String sessionId) throws PersistenceException, ServiceUnavailableException;
+    public List<Cat> getAllCats(String sessionId) throws PersistenceException, ServiceUnavailableException;
+    public void updateCat(Cat cat, String sessionId) throws PersistenceException, ServiceUnavailableException;
 }
