@@ -117,6 +117,14 @@ public class FurnitureServiceImpl implements FurnitureService {
 
     @Override
     public void updateFurniture(Furniture furniture, String sessionId) throws PersistenceException, ServiceUnavailableException {
+        try {
+            EntityManager session = factory.getSessionContext(sessionId);
+            session.update(furniture);
 
+        } catch (ConnectionFailedException e) {
+            throw new ServiceUnavailableException();
+        } catch (CatnapException e) {
+            throw new PersistenceException();
+        }
     }
 }
