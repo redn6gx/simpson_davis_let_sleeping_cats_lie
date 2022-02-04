@@ -56,6 +56,38 @@ public class FurnitureServiceImpl implements FurnitureService {
     }
 
     @Override
+    public void createMultipleFurniture(List<Furniture> furniture, String sessionId) throws PersistenceException, ServiceUnavailableException {
+        EntityManager session;
+        try {
+            session = factory.getSessionContext(sessionId);
+            session.beginTransaction();
+
+            for (Furniture f: furniture) {
+                session = factory.getSessionContext(sessionId);
+                session.persist(f);
+            }
+
+        } catch (ConnectionFailedException e) {
+            throw new ServiceUnavailableException();
+        } catch (CatnapException e) {
+            throw new PersistenceException();
+        }
+
+        try {
+            session.commit();
+            session.close();
+        } catch (RollbackException e) {
+            try {
+                session.rollback();
+            } catch (CatnapException ex) {
+                throw new PersistenceException();
+            }
+        } catch (CatnapException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public Optional<Furniture> getFurnitureById(int id, String sessionId) throws PersistenceException, ServiceUnavailableException {
         return Optional.empty();
     }
