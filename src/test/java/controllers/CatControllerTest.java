@@ -10,9 +10,14 @@ public class CatControllerTest {
     public void testDeleteCatFailed(){}
 
     @Test
-    public void testCreateCatSuccess(){}
+    public void testCreateCatSingleSuccess(){}
     @Test
-    public void testCreateCatFailed(){}
+    public void testCreateCatSingleFailed(){}
+
+    @Test
+    public void testCreateCatMultipleSuccess(){}
+    @Test
+    public void testCreateCatMultipleFailed(){}
 
     @Test
     public void testGetCatByIdSuccess(){}
