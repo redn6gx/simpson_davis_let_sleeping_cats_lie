@@ -1,9 +1,14 @@
 package com.revature.models;
 
-//@Entity
+import annotations.Entity;
+import annotations.Id;
+import annotations.OrderBy;
+
+@Entity
 public class Furniture {
-//    @Id
+    @Id
     int furnitureId;
+    @OrderBy(direction="DESC")
     String type;
     boolean cozy;
 

@@ -1,13 +1,18 @@
 package com.revature.models;
 
-//@Entity(name="cats")
+import annotations.Entity;
+import annotations.Id;
+import annotations.Length;
+import annotations.OrderBy;
+
+@Entity(name="cats")
 public class Cat {
-//    @Id
+    @Id
     private int catId;
-//    @Length(size="30")
+    @Length(size="30")
+    @OrderBy
     private String name;
     private String breed;
-//    @OrderBy(direction="DESC")
     private double weight;
 
 
