@@ -7,6 +7,8 @@ import com.revature.controllers.FurnitureController;
 import com.revature.controllers.FurnitureControllerImpl;
 import com.revature.services.CatService;
 import com.revature.services.CatServiceImpl;
+import com.revature.services.FurnitureService;
+import com.revature.services.FurnitureServiceImpl;
 import com.revature.servlets.CatServlet;
 import com.revature.servlets.FurnitureServlet;
 import org.apache.logging.log4j.LogManager;
@@ -71,7 +73,8 @@ public class Bootstrapper implements ServletContextListener {
     }
 
     private void initializeFurnitureServlet(ServletContext context, SessionFactory factory) {
-        FurnitureController furnitureController = new FurnitureControllerImpl(null);
+        FurnitureService furnitureService = new FurnitureServiceImpl(factory);
+        FurnitureController furnitureController = new FurnitureControllerImpl(furnitureService);
         ServletRegistration.Dynamic registration = context.addServlet("FurnitureServlet", new FurnitureServlet(furnitureController));
         URI paths = FurnitureServlet.class.getAnnotation(URI.class);
         Arrays.stream(paths.urlPatterns()).forEach(registration::addMapping);
