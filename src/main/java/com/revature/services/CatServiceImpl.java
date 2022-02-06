@@ -85,6 +85,7 @@ public class CatServiceImpl implements CatService {
         try {
             EntityManager session = factory.getSessionContext(sessionId);
             Optional<Object> cat = session.get(Cat.class, id);
+            session.close();
 
             return cat.map(o -> (Cat) o);
         } catch (ConnectionFailedException e) {
@@ -99,6 +100,7 @@ public class CatServiceImpl implements CatService {
         try {
             EntityManager session = factory.getSessionContext(sessionId);
             List<Object> cats = session.getAll(Cat.class);
+            session.close();
 
             return cats.stream().map(cat -> (Cat) cat).collect(Collectors.toList());
         } catch (ConnectionFailedException e) {
@@ -113,6 +115,7 @@ public class CatServiceImpl implements CatService {
         try {
             EntityManager session = factory.getSessionContext(sessionId);
             session.update(cat);
+            session.close();
 
         } catch (ConnectionFailedException e) {
             throw new ServiceUnavailableException();
