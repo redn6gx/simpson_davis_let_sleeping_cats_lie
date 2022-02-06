@@ -65,103 +65,35 @@ public class CatControllerImpl implements CatController{
 
     @Override
     public void createCat(HttpServletRequest request, HttpServletResponse response) {
-//        boolean isMany = false;
-//
-//        try {
-//            char c = request.getReader().toString().charAt(0);
-//            if(c == '['){
-//                isMany = true;
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        if(!isMany) {
-//            Cat cat = null;
-//            try {
-//                cat = gson.fromJson(request.getReader(), Cat.class);
-//            } catch (IOException e) {
-//                logger.error(e.getMessage());
-//            }
-//
-//            //if multiple json object call cs.createMany, else call cs.createCat
-//            try {
-//                cs.createCat(cat, request.getSession().getId());
-//                response.setStatus(201);
-//                response.getWriter().append(gson.toJson(cat));
-//            } catch (PersistenceException e) {
-//                try {
-//                    response.sendError(400);
-//                } catch (IOException ex) {
-//                    logger.error(ex.getMessage());
-//                }
-//                logger.error(e.getMessage());
-//            } catch (ServiceUnavailableException e) {
-//                try {
-//                    response.sendError(503);
-//                } catch (IOException ex) {
-//                    logger.error(ex.getMessage());
-//                }
-//                logger.error(e.getMessage());
-//            } catch (IOException e) {
-//                logger.error(e.getMessage());
-//            }
-//        }else {
-//            //createMany
-//            List<Cat> cats = new ArrayList<>();
-//
-//            try {
-//                cs.createManyCats(cats, request.getSession().getId());
-//                response.setStatus(201);
-//                response.getWriter().append(gson.toJson(cats));
-//            } catch (PersistenceException e) {
-//                try {
-//                    response.sendError(400);
-//                } catch (IOException ex) {
-//                    logger.error(ex.getMessage());
-//                }
-//                logger.error(e.getMessage());
-//            } catch (ServiceUnavailableException e) {
-//                try {
-//                    response.sendError(503);
-//                } catch (IOException ex) {
-//                    logger.error(ex.getMessage());
-//                }
-//                logger.error(e.getMessage());
-//            } catch (IOException e) {
-//                logger.error(e.getMessage());
-//            }
-//        }
+        Cat cat = null;
 
-            Cat cat = null;
+        try {
+            cat = gson.fromJson(request.getReader(), Cat.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        try {
+            cs.createCat(cat, request.getSession().getId());
+            response.setStatus(201);
+            response.getWriter().append(gson.toJson(cat));
+        } catch (PersistenceException e) {
             try {
-                cat = gson.fromJson(request.getReader(), Cat.class);
-            } catch (IOException e) {
-                logger.error(e.getMessage());
+                response.sendError(400);
+            } catch (IOException ex) {
+                logger.error(ex.getMessage());
             }
-
+            logger.error(e.getMessage());
+        } catch (ServiceUnavailableException e) {
             try {
-                cs.createCat(cat, request.getSession().getId());
-                response.setStatus(201);
-                response.getWriter().append(gson.toJson(cat));
-            } catch (PersistenceException e) {
-                try {
-                    response.sendError(400);
-                } catch (IOException ex) {
-                    logger.error(ex.getMessage());
-                }
-                logger.error(e.getMessage());
-            } catch (ServiceUnavailableException e) {
-                try {
-                    response.sendError(503);
-                } catch (IOException ex) {
-                    logger.error(ex.getMessage());
-                }
-                logger.error(e.getMessage());
-            } catch (IOException e) {
-                logger.error(e.getMessage());
+                response.sendError(503);
+            } catch (IOException ex) {
+                logger.error(ex.getMessage());
             }
+            logger.error(e.getMessage());
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
     }
 
     @Override
