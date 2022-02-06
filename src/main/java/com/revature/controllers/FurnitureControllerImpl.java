@@ -3,9 +3,7 @@ package com.revature.controllers;
 import com.google.gson.Gson;
 import com.revature.exceptions.PersistenceException;
 import com.revature.exceptions.ServiceUnavailableException;
-import com.revature.models.Cat;
 import com.revature.models.Furniture;
-import com.revature.services.CatService;
 
 import com.revature.services.FurnitureService;
 import org.apache.logging.log4j.LogManager;
