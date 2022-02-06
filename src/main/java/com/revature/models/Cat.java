@@ -30,6 +30,7 @@ public Cat(String name, String breed){
     public int getCatId() {
         return catid;
     }
+    public void setCatId(int catid) {this.catid = catid;} //for update
 
     public String getName() {
         return name;

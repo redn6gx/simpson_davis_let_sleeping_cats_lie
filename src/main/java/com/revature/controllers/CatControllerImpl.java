@@ -27,13 +27,21 @@ public class CatControllerImpl implements CatController{
 
     @Override
     public void deleteCat(HttpServletRequest request, HttpServletResponse response) {
-        Cat cat = null;
-        try{
-            cat = gson.fromJson(request.getReader(), Cat.class);
-//            cat = gson.fromJson(request.getReader().lines().collect(Collectors.joining()), Cat.class);
-        }catch(IOException e){
-            logger.error(e.getMessage());
+        String input = request.getAttribute("id").toString();
+        int id;
+        if(input.matches("[0-9]+")) {
+            id = Integer.parseInt(input);
+        } else {
+            try{
+                response.sendError(400, "ID is not a number");
+            }catch(IOException e){
+                logger.error(e.getMessage());
+            }
+            return;
         }
+
+        Cat cat = new Cat();
+        cat.setCatId(id);
 
         try {
             cs.deleteCat(cat, request.getSession().getId());
@@ -125,9 +133,6 @@ public class CatControllerImpl implements CatController{
 //            }
 //        }
 
-
-
-
             Cat cat = null;
 
             try {
@@ -157,8 +162,6 @@ public class CatControllerImpl implements CatController{
             } catch (IOException e) {
                 logger.error(e.getMessage());
             }
-
-
     }
 
     @Override
@@ -234,13 +237,27 @@ public class CatControllerImpl implements CatController{
 
     @Override
     public void updateCat(HttpServletRequest request, HttpServletResponse response) {
-        Cat cat = null;
+        String input = request.getAttribute("id").toString();
+        int id;
+        if(input.matches("[0-9]+")) {
+            id = Integer.parseInt(input);
+        } else {
+            try{
+                response.sendError(400, "ID is not a number");
+            }catch(IOException e){
+                logger.error(e.getMessage());
+            }
+            return;
+        }
 
+        Cat cat = null;
         try {
             cat = gson.fromJson(request.getReader(), Cat.class);
         } catch (IOException e) {
             logger.error(e.getMessage());
         }
+
+        cat.setCatId(id);
 
         try {
             cs.updateCat(cat, request.getSession().getId());
