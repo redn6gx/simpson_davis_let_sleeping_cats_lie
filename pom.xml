@@ -14,6 +14,12 @@
     </properties>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.3.1</version>
+        </dependency>
 
         <!-- Catnap -->
         <dependency>
@@ -79,7 +85,7 @@
     <packaging>war</packaging>
 
     <build>
-
+        <finalName>LetSleepingCatsLie</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -93,5 +99,5 @@
             </plugin>
         </plugins>
     </build>
-    
+
 </project>

@@ -8,24 +8,29 @@ import annotations.OrderBy;
 @Entity(name="cats")
 public class Cat {
     @Id
-    private int catId;
+    public int catid;
     @Length(size="30")
     @OrderBy
-    private String name;
-    private String breed;
-    private double weight;
+    public String name;
+    public String breed;
+//    private double weight;
 
 
     public Cat(){}
-    public Cat(String name, String breed, double weight){
-        this.name = name;
-        this.breed = breed;
-        this.weight = weight;
-    }
+//    public Cat(String name, String breed, double weight){
+//        this.name = name;
+//        this.breed = breed;
+//        this.weight = weight;
+//    }
+public Cat(String name, String breed){
+    this.name = name;
+    this.breed = breed;
+}
 
     public int getCatId() {
-        return catId;
+        return catid;
     }
+    public void setCatId(int catid) {this.catid = catid;} //for update
 
     public String getName() {
         return name;
@@ -41,10 +46,10 @@ public class Cat {
         this.breed = breed;
     }
 
-    public double getWeight() {
-        return weight;
-    }
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
+//    public double getWeight() {
+//        return weight;
+//    }
+//    public void setWeight(double weight) {
+//        this.weight = weight;
+//    }
 }
