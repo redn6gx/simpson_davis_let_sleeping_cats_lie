@@ -21,6 +21,7 @@ public class Furniture {
     public int getFurnitureId() {
         return furnitureId;
     }
+    public void setFurnitureId(int furnitureId){this.furnitureId = furnitureId;}
 
     public String getType() {
         return type;
