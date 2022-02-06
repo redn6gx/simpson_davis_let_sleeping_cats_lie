@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CatControllerImpl implements CatController{
     private final static Logger logger = LogManager.getLogger(CatControllerImpl.class);
@@ -176,14 +177,9 @@ public class CatControllerImpl implements CatController{
         }
 
         Cat cat = null;
-        try{
-            cat = gson.fromJson(request.getReader(), Cat.class);
-        }catch(IOException e){
-            logger.error(e.getMessage());
-        }
-
         try {
-            cs.getCatById(id, request.getSession().getId());
+            Optional<Cat> result = cs.getCatById(id, request.getSession().getId());
+            cat = result.get();
             response.setStatus(200);
             response.getWriter().append(gson.toJson(cat));
         } catch (PersistenceException e) {
