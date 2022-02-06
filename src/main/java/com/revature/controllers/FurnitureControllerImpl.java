@@ -3,9 +3,7 @@ package com.revature.controllers;
 import com.google.gson.Gson;
 import com.revature.exceptions.PersistenceException;
 import com.revature.exceptions.ServiceUnavailableException;
-import com.revature.models.Cat;
 import com.revature.models.Furniture;
-import com.revature.services.CatService;
 
 import com.revature.services.FurnitureService;
 import org.apache.logging.log4j.LogManager;
@@ -15,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,34 +66,48 @@ public class FurnitureControllerImpl implements FurnitureController{
 
     @Override
     public void createFurniture(HttpServletRequest request, HttpServletResponse response) {
-        Furniture furniture = null;
+        String json = null;
 
+        StringBuilder jsonBuilder = new StringBuilder();
         try {
-            furniture = gson.fromJson(request.getReader(), Furniture.class);
+            String line;
+            while((line = request.getReader().readLine()) != null) {
+                jsonBuilder.append(line);
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                response.sendError(503);
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
         }
 
+        json = jsonBuilder.toString();
+
         try {
-            cs.createFurniture(furniture, request.getSession().getId());
+            // try for one
+            Furniture f = gson.fromJson(json, Furniture.class);
+
+            cs.createFurniture(f, request.getSession().getId());
             response.setStatus(201);
-            response.getWriter().append(gson.toJson(furniture));
-        } catch (PersistenceException e) {
+        } catch (com.google.gson.JsonSyntaxException e) {
+            // have multiple
             try {
-                response.sendError(400);
-            } catch (IOException ex) {
-                logger.error(ex.getMessage());
+                Furniture[] furniture = gson.fromJson(json, Furniture[].class);
+                cs.createMultipleFurniture(Arrays.asList(furniture), request.getSession().getId());
+            } catch (PersistenceException | ServiceUnavailableException ex) {
+                try {
+                    response.sendError(503);
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
             }
-            logger.error(e.getMessage());
-        } catch (ServiceUnavailableException e) {
+        } catch (PersistenceException | ServiceUnavailableException e) {
             try {
                 response.sendError(503);
             } catch (IOException ex) {
-                logger.error(ex.getMessage());
+                ex.printStackTrace();
             }
-            logger.error(e.getMessage());
-        } catch (IOException e) {
-            logger.error(e.getMessage());
         }
     }
 

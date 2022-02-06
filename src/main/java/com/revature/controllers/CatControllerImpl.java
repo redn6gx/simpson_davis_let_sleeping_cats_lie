@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,34 +66,48 @@ public class CatControllerImpl implements CatController{
 
     @Override
     public void createCat(HttpServletRequest request, HttpServletResponse response) {
-        Cat cat = null;
+        String json = null;
 
+        StringBuilder jsonBuilder = new StringBuilder();
         try {
-            cat = gson.fromJson(request.getReader(), Cat.class);
+            String line;
+            while((line = request.getReader().readLine()) != null) {
+                jsonBuilder.append(line);
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                response.sendError(503);
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
         }
 
+        json = jsonBuilder.toString();
+
         try {
+            // try for one
+            Cat cat = gson.fromJson(json, Cat.class);
+
             cs.createCat(cat, request.getSession().getId());
             response.setStatus(201);
-            response.getWriter().append(gson.toJson(cat));
-        } catch (PersistenceException e) {
+        } catch (com.google.gson.JsonSyntaxException e) {
+            // have multiple
             try {
-                response.sendError(400);
-            } catch (IOException ex) {
-                logger.error(ex.getMessage());
+                Cat[] cats = gson.fromJson(json, Cat[].class);
+                cs.createManyCats(Arrays.asList(cats), request.getSession().getId());
+            } catch (PersistenceException | ServiceUnavailableException ex) {
+                try {
+                    response.sendError(503);
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
             }
-            logger.error(e.getMessage());
-        } catch (ServiceUnavailableException e) {
+        } catch (PersistenceException | ServiceUnavailableException e) {
             try {
                 response.sendError(503);
             } catch (IOException ex) {
-                logger.error(ex.getMessage());
+                ex.printStackTrace();
             }
-            logger.error(e.getMessage());
-        } catch (IOException e) {
-            logger.error(e.getMessage());
         }
     }
 
