@@ -86,6 +86,7 @@ public class FurnitureServiceImpl implements FurnitureService {
         try {
             EntityManager session = factory.getSessionContext(sessionId);
             Optional<Object> furniture = session.get(Furniture.class, id);
+            session.close();
 
             return furniture.map(o -> (Furniture) o);
         } catch (ConnectionFailedException e) {
@@ -100,6 +101,7 @@ public class FurnitureServiceImpl implements FurnitureService {
         try {
             EntityManager session = factory.getSessionContext(sessionId);
             List<Object> furniture = session.getAll(Furniture.class);
+            session.close();
 
             return furniture.stream().map(f -> (Furniture) f).collect(Collectors.toList());
         } catch (ConnectionFailedException e) {
@@ -114,6 +116,7 @@ public class FurnitureServiceImpl implements FurnitureService {
         try {
             EntityManager session = factory.getSessionContext(sessionId);
             session.update(furniture);
+            session.close();
 
         } catch (ConnectionFailedException e) {
             throw new ServiceUnavailableException();

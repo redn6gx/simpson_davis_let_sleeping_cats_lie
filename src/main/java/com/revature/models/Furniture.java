@@ -7,10 +7,10 @@ import annotations.OrderBy;
 @Entity(name="furniture")
 public class Furniture {
     @Id
-    int furnitureId;
+    public int furnitureid;
     @OrderBy(direction="DESC")
-    String type;
-    boolean cozy;
+    public String type;
+    public boolean cozy;
 
     public Furniture(){}
     public Furniture(String type, boolean cozy){
@@ -19,9 +19,9 @@ public class Furniture {
     }
 
     public int getFurnitureId() {
-        return furnitureId;
+        return furnitureid;
     }
-    public void setFurnitureId(int furnitureId){this.furnitureId = furnitureId;}
+    public void setFurnitureId(int furnitureId){this.furnitureid = furnitureId;}
 
     public String getType() {
         return type;
