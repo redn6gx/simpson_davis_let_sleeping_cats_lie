@@ -21,6 +21,14 @@ public class FurnitureServiceImpl implements FurnitureService {
         this.factory = factory;
     }
 
+    /**
+     * This method deletes a Furniture entity from the database.
+     *
+     * @param furniture                        the Furniture to be deleted
+     * @param sessionId                        the user's session id
+     * @throws PersistenceException            thrown when a problem occurs with modifying the database
+     * @throws ServiceUnavailableException     thrown when connecting to the database is unavailable
+     */
     @Override
     public void deleteFurniture(Furniture furniture, String sessionId) throws PersistenceException, ServiceUnavailableException {
         try {
@@ -35,6 +43,14 @@ public class FurnitureServiceImpl implements FurnitureService {
         }
     }
 
+    /**
+     * This method adds a Furniture entity to the database.
+     *
+     * @param furniture                        the Furniture to be added
+     * @param sessionId                        the user's session id
+     * @throws PersistenceException            thrown when a problem occurs with modifying the database
+     * @throws ServiceUnavailableException     thrown when connecting to the database is unavailable
+     */
     @Override
     public void createFurniture(Furniture furniture, String sessionId) throws PersistenceException, ServiceUnavailableException {
         try {
@@ -49,6 +65,14 @@ public class FurnitureServiceImpl implements FurnitureService {
         }
     }
 
+    /**
+     * This method adds multiple Furniture entities to the database.
+     *
+     * @param furniture                        the Furniture entities to be added
+     * @param sessionId                        the user's session id
+     * @throws PersistenceException            thrown when a problem occurs with modifying the database
+     * @throws ServiceUnavailableException     thrown when connecting to the database is unavailable
+     */
     @Override
     public void createMultipleFurniture(List<Furniture> furniture, String sessionId) throws PersistenceException, ServiceUnavailableException {
         EntityManager session;
@@ -81,6 +105,14 @@ public class FurnitureServiceImpl implements FurnitureService {
         }
     }
 
+    /**
+     * This method gets a Furniture entity from the database by its id.
+     *
+     * @param id                               the id of the Furniture to get
+     * @param sessionId                        the user's session id
+     * @throws PersistenceException            thrown when a problem occurs with modifying the database
+     * @throws ServiceUnavailableException     thrown when connecting to the database is unavailable
+     */
     @Override
     public Optional<Furniture> getFurnitureById(int id, String sessionId) throws PersistenceException, ServiceUnavailableException {
         try {
@@ -96,6 +128,13 @@ public class FurnitureServiceImpl implements FurnitureService {
         }
     }
 
+    /**
+     * This method gets all Furniture entities from the database.
+     *
+     * @param sessionId                        the user's session id
+     * @throws PersistenceException            thrown when a problem occurs with modifying the database
+     * @throws ServiceUnavailableException     thrown when connecting to the database is unavailable
+     */
     @Override
     public List<Furniture> getAllFurniture(String sessionId) throws PersistenceException, ServiceUnavailableException {
         try {
@@ -111,6 +150,14 @@ public class FurnitureServiceImpl implements FurnitureService {
         }
     }
 
+    /**
+     * This method updates a Furniture entity to the database.
+     *
+     * @param furniture                        the Furniture to be updated
+     * @param sessionId                        the user's session id
+     * @throws PersistenceException            thrown when a problem occurs with modifying the database
+     * @throws ServiceUnavailableException     thrown when connecting to the database is unavailable
+     */
     @Override
     public void updateFurniture(Furniture furniture, String sessionId) throws PersistenceException, ServiceUnavailableException {
         try {
