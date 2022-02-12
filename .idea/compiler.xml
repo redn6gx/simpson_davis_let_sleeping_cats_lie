@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="simpson_davis_let_sleeping_cats_lie" />
         <module name="LetSleepingCatsLie" />
       </profile>
     </annotationProcessing>
